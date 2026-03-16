@@ -1,7 +1,7 @@
 from datasets import load_dataset
 import json
 
-dataset = load_dataset("ms_marco","passage")
+dataset = load_dataset("ms_marco","v1.1")
 
 train = dataset["train"]
 
