@@ -1,6 +1,5 @@
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
 import json
-import torch
 from datasets import Dataset
 from transformers import DataCollatorWithPadding
 
@@ -8,26 +7,33 @@ model_name = "BAAI/bge-reranker-base"
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
+model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
 
-model = AutoModelForSequenceClassification.from_pretrained(model_name)
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
 data = json.load(open("training/msmarco_train.json"))
 
 dataset = Dataset.from_list(data)
 
 def tokenize(example):
-    tokens = tokenizer(example["query"],example["passage"],truncation=True,padding=True,max_length=256)
-    tokens["labels"] = float(example["label"])
+    tokens = tokenizer(
+        example["query"],
+        example["passage"],
+        truncation=True,
+        padding=False,
+        max_length=256
+    )
+    tokens["labels"] = int(example["label"])
     return tokens
 
-dataset = dataset.map(tokenize)
+dataset = dataset.map(tokenize, remove_columns=["query","passage","label"])
 
 training_args = TrainingArguments(
     output_dir="models/reranker_finetuned",
     per_device_train_batch_size=16,
     num_train_epochs=2,
-    learning_rate=2e-5
+    learning_rate=2e-5,
+    logging_steps=50
 )
 
 trainer = Trainer(
