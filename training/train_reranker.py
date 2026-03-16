@@ -19,6 +19,7 @@ def tokenize(example):
 dataset = dataset.map(tokenize)
 
 dataset = dataset.rename_column("label","labels")
+dataset = dataset.cast_column("labels","float32")
 
 training_args = TrainingArguments(
     output_dir="models/reranker_finetuned",
