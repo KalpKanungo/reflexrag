@@ -7,7 +7,7 @@ model_name = "BAAI/bge-reranker-base"
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
+model = AutoModelForSequenceClassification.from_pretrained(model_name)
 
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
@@ -23,7 +23,7 @@ def tokenize(example):
         padding=False,
         max_length=256
     )
-    tokens["labels"] = int(example["label"])
+    tokens["labels"] = float(example["label"])
     return tokens
 
 dataset = dataset.map(tokenize, remove_columns=["query","passage","label"])
