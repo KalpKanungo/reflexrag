@@ -2,10 +2,13 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trai
 import json
 import torch
 from datasets import Dataset
+from transformers import DataCollatorWithPadding
 
 model_name = "BAAI/bge-reranker-base"
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
 model = AutoModelForSequenceClassification.from_pretrained(model_name)
 
@@ -30,7 +33,8 @@ training_args = TrainingArguments(
 trainer = Trainer(
     model=model,
     args=training_args,
-    train_dataset=dataset
+    train_dataset=dataset,
+    data_collator=data_collator
 )
 
 trainer.train()
