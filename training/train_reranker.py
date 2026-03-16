@@ -14,7 +14,7 @@ data = json.load(open("training/msmarco_train.json"))
 dataset = Dataset.from_list(data)
 
 def tokenize(example):
-    tokens = tokenizer(example["query"],example["passage"],truncation=True,padding="True",max_length=256)
+    tokens = tokenizer(example["query"],example["passage"],truncation=True,padding=True,max_length=256)
     tokens["labels"] = float(example["label"])
     return tokens
 
