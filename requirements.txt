@@ -1,0 +1,16 @@
+torch
+torchvision
+transformers
+sentence-transformers
+datasets
+faiss-cpu
+rank-bm25
+pymupdf
+pandas
+numpy
+scikit-learn
+gradio
+tqdm
+networkx
+accelerate
+huggingface-hub
