@@ -14,12 +14,11 @@ data = json.load(open("training/msmarco_train.json"))
 dataset = Dataset.from_list(data)
 
 def tokenize(example):
-    return tokenizer(example["query"],example["passage"],truncation=True,padding="max_length",max_length=512)
+    tokens = tokenizer(example["query"],example["passage"],truncation=True,padding="max_length",max_length=512)
+    tokens["labels"] = float(example["label"])
+    return tokens
 
 dataset = dataset.map(tokenize)
-
-dataset = dataset.rename_column("label","labels")
-dataset = dataset.cast_column("labels","float32")
 
 training_args = TrainingArguments(
     output_dir="models/reranker_finetuned",
