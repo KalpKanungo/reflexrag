@@ -39,11 +39,11 @@ class RerankerTrainer(Trainer):
 training_args = TrainingArguments(
     output_dir="models/reranker_finetuned_v2",
     per_device_train_batch_size=16,
-    num_train_epochs=3,
+    num_train_epochs=1,
     learning_rate=2e-5,
     logging_steps=50,
     save_strategy="no",
-    warmup_ratio=0.1,
+    warmup_steps=200,
     weight_decay=0.01,
 )
 
