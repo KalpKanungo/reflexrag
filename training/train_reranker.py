@@ -1,3 +1,6 @@
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
 import json
 import torch
@@ -45,6 +48,7 @@ training_args = TrainingArguments(
     save_strategy="no",
     warmup_steps=200,
     weight_decay=0.01,
+    no_cuda=False,
 )
 
 trainer = RerankerTrainer(
