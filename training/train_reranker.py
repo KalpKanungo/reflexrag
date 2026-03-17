@@ -48,7 +48,7 @@ training_args = TrainingArguments(
     save_strategy="no",
     warmup_steps=200,
     weight_decay=0.01,
-    no_cuda=False,
+    use_cpu=False,
 )
 
 trainer = RerankerTrainer(
