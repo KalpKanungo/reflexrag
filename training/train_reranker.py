@@ -7,10 +7,10 @@ from transformers import DataCollatorWithPadding
 
 model_name = "BAAI/bge-reranker-base"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=1)  # ← fixed
+model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=1)
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
-data = json.load(open("training/msmarco_train.json"))
+data = json.load(open("training/msmarco_hard_negatives.json"))
 dataset = Dataset.from_list(data)
 
 def tokenize(example):
@@ -25,27 +25,26 @@ def tokenize(example):
     return tokens
 
 dataset = dataset.map(tokenize, remove_columns=["query", "passage", "label"])
-dataset = dataset.cast_column("labels", Value("float32"))  # ← fixed
+dataset = dataset.cast_column("labels", Value("float32"))
 
-# Custom Trainer with BCEWithLogitsLoss
 class RerankerTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         labels = inputs.pop("labels").float()
         outputs = model(**inputs)
         logits = outputs.logits.squeeze(-1)
-
         loss_fn = nn.BCEWithLogitsLoss()
         loss = loss_fn(logits, labels)
-
         return (loss, outputs) if return_outputs else loss
 
 training_args = TrainingArguments(
-    output_dir="models/reranker_finetuned",
+    output_dir="models/reranker_finetuned_v2",
     per_device_train_batch_size=16,
-    num_train_epochs=2,
+    num_train_epochs=3,
     learning_rate=2e-5,
     logging_steps=50,
-    save_strategy="no",        # ← no checkpoints saved
+    save_strategy="no",
+    warmup_ratio=0.1,
+    weight_decay=0.01,
 )
 
 trainer = RerankerTrainer(
@@ -56,4 +55,4 @@ trainer = RerankerTrainer(
 )
 
 trainer.train()
-trainer.save_model("models/reranker_finetuned")
+trainer.save_model("models/reranker_finetuned_v2")
