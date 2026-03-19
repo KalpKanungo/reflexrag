@@ -13,7 +13,7 @@ from src.verification.self_correction import SelfCorrector
 from src.data_pipeline.user_pdf_pipeline import extract_text_from_pdf
 from src.literature.survey_generator import SurveyGenerator
 
-retriever = MultiHopRetriever("models/reranker_finetuned_v2")
+retriever = MultiHopRetriever("kalpkanungo/reranker_finetuned_v2")
 generator = AnswerGenerator()
 checker = GroundingChecker()
 corrector = SelfCorrector()
