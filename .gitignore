@@ -15,3 +15,4 @@ reranker_model.zip
 .DS_Store
 training/msmarco_train.json
 training/msmarco_hard_negatives.json
+.env
