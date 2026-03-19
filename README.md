@@ -18,7 +18,7 @@ pinned: false
 ## 🤗 Live Demo
 
 👉 **Try it here:**  
-🔗 https://huggingface.co/spaces/KalpKanungo/reflexrag  
+🔗 https://huggingface.co/spaces/KalpKanungo/Reflexrag  
 
 ---
 
