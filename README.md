@@ -129,7 +129,6 @@ Improve retrieval with hybrid search (BM25 + dense)
 🤝 Contributing
 Contributions, suggestions, and improvements are welcome!
 Feel free to fork the repo and open a pull request.
----
+
 ⭐ If you found this useful
 Give it a ⭐ on GitHub — it helps a lot!
----
