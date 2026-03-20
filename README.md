@@ -69,6 +69,7 @@ The system goes beyond standard RAG by incorporating:
 ---
 
 ## 🏗️ System Architecture
+```
 User Query
 ↓
 Embedding (BGE)
@@ -86,6 +87,7 @@ Grounding Verification
 (Self-Correction Loop if needed)
 ↓
 Final Answer
+```
 
 
 ---
