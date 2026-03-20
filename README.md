@@ -119,3 +119,14 @@ cd reflexrag
 
 pip install -r requirements.txt
 python app.py
+
+💡 Future Improvements
+Add agentic workflows for iterative research exploration
+Integrate advanced evaluation metrics (RAGAS / TruLens)
+Support long-context LLMs for full-document reasoning
+Improve retrieval with hybrid search (BM25 + dense)
+🤝 Contributing
+Contributions, suggestions, and improvements are welcome!
+Feel free to fork the repo and open a pull request.
+⭐ If you found this useful
+Give it a ⭐ on GitHub — it helps a lot!
