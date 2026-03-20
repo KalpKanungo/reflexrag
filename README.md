@@ -119,7 +119,7 @@ cd reflexrag
 
 pip install -r requirements.txt
 python app.py
-
+```
 💡 Future Improvements
 Add agentic workflows for iterative research exploration
 Integrate advanced evaluation metrics (RAGAS / TruLens)
